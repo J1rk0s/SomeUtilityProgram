@@ -1,0 +1,54 @@
+﻿<Page x:Class="AutoInstall.Backup"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:AutoInstall"
+      mc:Ignorable="d"
+      Title="Backup" MinHeight="450" MinWidth="535" MaxHeight="500" MaxWidth="600"
+      Background="DarkGray">
+    <Grid>
+        <ComboBox Name="Drives" Width="50" Height="30" HorizontalAlignment="Left" Margin="50,0,0,220"></ComboBox>
+        <ListBox Name="Paths" Width="300" Height="200" Margin="0,0,0,60"></ListBox>
+        <Button Name="Add" Width="70" Height="40" VerticalAlignment="Bottom" Margin="230,0,0,60" Click="OnAddPath">
+            <Button.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+        </Button.Resources>
+            Add
+        </Button>
+        <Button Name="Delete" Width="70" Height="40" VerticalAlignment="Bottom" Margin="0,0,230,60" Click="OnDeletePath">
+            <Button.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+        </Button.Resources>Delete
+        </Button>
+        <Button Name="Back" Width="70" Height="40" VerticalAlignment="Bottom" Margin="0,0,80,60" Click="OnBackup">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+            Backup
+        </Button>
+        <Button Name="LoadDefaultPath" Width="70" Height="40" HorizontalAlignment="Left" Margin="40,0,0,120" Click="OnDefaultPaths">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+            DefaultPaths
+        </Button>
+        <Button Name="SelectSave" Width="70" Height="40" VerticalAlignment="Bottom" Margin="80,0,0,60" Click="OnSaveLocation">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+            SaveLocation
+        </Button>
+        <TextBox Name="EnterPath" Width="300" Height="40" VerticalAlignment="Bottom" Margin="0,0,0,110" Text="Enter path" GotFocus="EnterPath_OnGotFocus"></TextBox>
+    </Grid>
+</Page>

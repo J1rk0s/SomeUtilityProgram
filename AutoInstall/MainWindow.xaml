@@ -1,0 +1,24 @@
+﻿<Window x:Class="AutoInstall.Main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoInstall"
+        mc:Ignorable="d"
+        Title="Tools" MinHeight="450" MinWidth="535" MaxHeight="500" MaxWidth="600"
+        Background="DarkGray">
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" Height="20" VerticalAlignment="Top">
+                <MenuItem Header="Modes">
+                    <MenuItem Header="AutoInstall" Click="Install"/>
+                    <MenuItem Header="Backup" Click="Backup"/>
+                </MenuItem>
+                <MenuItem Header="Options">
+                    <MenuItem Header="DarkMode"></MenuItem>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <Frame Name="Start" Margin="0,23,0,0" NavigationUIVisibility="Hidden"></Frame>
+    </Grid>
+</Window>
