@@ -1,0 +1,15 @@
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\bin\Debug\AutoInstall.exe.config
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\bin\Debug\AutoInstall.exe
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\bin\Debug\AutoInstall.pdb
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\AutoInstall.csproj.AssemblyReference.cache
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\MainWindow.g.cs
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\App.g.cs
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\AutoInstall_MarkupCompile.cache
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\AutoInstall_MarkupCompile.lref
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\MainWindow.baml
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\AutoInstall.g.resources
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\AutoInstall.Properties.Resources.resources
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\AutoInstall.csproj.GenerateResource.cache
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\AutoInstall.csproj.CoreCompileInputs.cache
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\AutoInstall.exe
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\AutoInstall.pdb
