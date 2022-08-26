@@ -5,10 +5,15 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace AutoInstall {
     public partial class Backup : Page {
         private string _SavePath;
+        private static DateTime time;
+
+        static Backup() => time = DateTime.Now;
+
         public Backup() {
             this.InitializeComponent();
             this.Drives.ItemsSource = Environment.GetLogicalDrives();
@@ -19,7 +24,8 @@ namespace AutoInstall {
         }
 
         private void OnAddPath(object sender, RoutedEventArgs e) {
-            if (this.EnterPath.Text == string.Empty || this.Paths.Items.Contains(this.EnterPath.Text)) {
+            if (this.EnterPath.Text == string.Empty || this.Paths.Items.Contains(this.EnterPath.Text) || !Directory.Exists(this.EnterPath.Text)) {
+                MessageBox.Show("The path is invalid or was already added!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -31,6 +37,10 @@ namespace AutoInstall {
         }
 
         private void OnDeletePath(object sender, RoutedEventArgs e) {
+            if (this.Paths.Items.Count == 0) {
+                MessageBox.Show("Specify path to delete!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             this.Paths.Items.RemoveAt(this.Paths.Items.IndexOf(this.Paths.SelectedItem));
         }
         
@@ -46,28 +56,39 @@ namespace AutoInstall {
 
         private async void OnBackup(object sender, RoutedEventArgs e) {
             if (this._SavePath == null) {
-                this.Paths.Items.Add("Specify save location!");
+                MessageBox.Show("Specify save location!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            DateTime time = DateTime.Today;
+            //DateTime time = DateTime.Today;
             if (this.Paths.Items.IsEmpty) {
+                MessageBox.Show("Path list is empty!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             try {
                 Directory.CreateDirectory($@"{this._SavePath}\{time.Day}.{time.Month} {time.Year}\");
                 foreach (object pat in this.Paths.Items) {
                     //this.Paths.Items.Add(pat.ToString());
-                    await Task.Run(() => this.CopyAll(new DirectoryInfo(pat.ToString()), new DirectoryInfo($@"{this._SavePath}\{time.Day}.{time.Month} {time.Year}\")));
+                    string[] s = pat.ToString().Split('\\');
+                    try {
+                        await Task.Run(() => this.CopyAll(new DirectoryInfo(pat.ToString()), new DirectoryInfo($@"{this._SavePath}\{time.Day}.{time.Month} {time.Year}\")));
+                        //await Task.Run(() => this.CopyAll(new DirectoryInfo(pat.ToString()), new DirectoryInfo($@"{this._SavePath}\{time.Day}.{time.Month} {time.Year}\{s[s.Length - 2]}")));
+                    }
+                    catch { }
                 }
             }
             catch (Exception exception) {
                 this.Paths.Items.Clear();
                 this.Paths.Items.Add("[ERROR] " + exception.Message);
             }
+            
         }
         private void OnDefaultPaths(object sender, RoutedEventArgs e) {
             this.Paths.Items.Clear();
             if (this.Drives.SelectedValue != null) {
+                if (!Directory.Exists(this.Drives.SelectedValue + "Users")) {
+                    MessageBox.Show("Selected drive has no users!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 foreach (string dir in Directory.GetDirectories($@"{this.Drives.SelectedValue}Users\")) {
                     if (!new[] {"Veřejné", "Public", "Default", "All"}.Any(c => dir.Contains(c))) {
                         this.Paths.Items.Add(Directory.Exists(dir + @"\Downloads") ? dir + @"\Downloads\" : string.Empty);
@@ -79,9 +100,12 @@ namespace AutoInstall {
                 while (this.Paths.Items.Contains(string.Empty)) {
                     this.Paths.Items.Remove(string.Empty);
                 }
+                return;
             }
+
+            MessageBox.Show("Drive not specified!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
-        private void CopyAll(DirectoryInfo location1, DirectoryInfo location2) { // From internet
+        private void CopyAll(DirectoryInfo location1, DirectoryInfo location2) {
             foreach (FileInfo fi in location1.GetFiles()) {
                 fi.CopyTo(Path.Combine(location2.FullName, fi.Name));
             }
@@ -89,6 +113,12 @@ namespace AutoInstall {
                 DirectoryInfo nextTargetSubDir = location2.CreateSubdirectory(diSourceSubDir.Name);
                 this.CopyAll(diSourceSubDir, nextTargetSubDir);
             }
+        }
+        
+
+        private void OnHelp(object sender, RoutedEventArgs e) {
+            MessageBox.Show("1) Specify save location\n2) Select drive with users above default paths\n3) Click default paths\n4) Click backup\nOptional: type custom path in enter path and click add",
+                "Help menu", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

@@ -13,3 +13,7 @@ C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\AutoInstall.cspro
 C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\AutoInstall.csproj.CoreCompileInputs.cache
 C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\AutoInstall.exe
 C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\AutoInstall.pdb
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\Backup.g.cs
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\Installer.g.cs
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\Backup.baml
+C:\Users\jiriv\RiderProjects\AutoInstall\AutoInstall\obj\Debug\Installer.baml

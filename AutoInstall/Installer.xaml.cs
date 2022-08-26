@@ -2,7 +2,9 @@
 using System;
 using System.Diagnostics;
 using System.Windows;
-using Microsoft.Win32;
+using System.Windows.Forms;
+using MessageBox = System.Windows.Forms.MessageBox;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 
 namespace AutoInstall {
@@ -15,7 +17,7 @@ namespace AutoInstall {
             OpenFileDialog dialog = new OpenFileDialog {
                 Title = "Select exes to install",
                 CheckFileExists = true,
-                Filter = "executables|*.exe",
+                Filter = "executables|*.exe|installers|*.msi",
                 ShowReadOnly = true,
                 Multiselect = true
             };
@@ -31,6 +33,7 @@ namespace AutoInstall {
 
         private void OnRunInstall(object sender, RoutedEventArgs e) {
             if (this.allExes.Items.Count == 0) {
+                MessageBox.Show("Add .exe or .msi first!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             try {
