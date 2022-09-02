@@ -106,31 +106,10 @@ namespace AutoInstall {
 
             MessageBox.Show("Drive not specified!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
-        private void CopyAll(DirectoryInfo location1, DirectoryInfo location2) {
-            foreach (FileInfo fi in location1.GetFiles()) {
-                fi.CopyTo(Path.Combine(location2.FullName, fi.Name));
-            }
-            foreach (DirectoryInfo diSourceSubDir in location1.GetDirectories()) {
-                DirectoryInfo nextTargetSubDir = location2.CreateSubdirectory(diSourceSubDir.Name);
-                this.CopyAll(diSourceSubDir, nextTargetSubDir);
-            }
-        }
         
-
         private void OnHelp(object sender, RoutedEventArgs e) {
             MessageBox.Show("1) Specify save location\n2) Select drive with users above default paths\n3) Click default paths\n4) Click backup\nOptional: type custom path in enter path and click add",
                 "Help menu", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-        
-        private static void CopyFilesRecursively(string sourcePath, string targetPath, string dir)
-        {
-            // foreach (string dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories)) {
-            //     Directory.CreateDirectory(dirPath.Replace(sourcePath, targetPath));
-            // }
-            Directory.CreateDirectory(targetPath + dir);
-            foreach (string newPath in Directory.GetFiles(sourcePath, "*.*",SearchOption.AllDirectories)) {
-                File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
-            }
         }
         
         private static void Copy(string sourceDirectory, string targetDirectory) {
