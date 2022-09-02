@@ -70,11 +70,12 @@ namespace AutoInstall {
                     //this.Paths.Items.Add(pat.ToString());
                     string[] s = pat.ToString().Split('\\');
                     try {
-                        await Task.Run(() => this.CopyAll(new DirectoryInfo(pat.ToString()), new DirectoryInfo($@"{this._SavePath}\{time.Day}.{time.Month} {time.Year}\")));
-                        //await Task.Run(() => this.CopyAll(new DirectoryInfo(pat.ToString()), new DirectoryInfo($@"{this._SavePath}\{time.Day}.{time.Month} {time.Year}\{s[s.Length - 2]}")));
+                        await Task.Run(() => Copy(pat.ToString(), $@"{this._SavePath}\{time.Day}.{time.Month} {time.Year}\{s[s.Length - 2]}"));
                     }
                     catch { }
                 }
+
+                MessageBox.Show("Completed copying!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception exception) {
                 this.Paths.Items.Clear();
@@ -119,6 +120,35 @@ namespace AutoInstall {
         private void OnHelp(object sender, RoutedEventArgs e) {
             MessageBox.Show("1) Specify save location\n2) Select drive with users above default paths\n3) Click default paths\n4) Click backup\nOptional: type custom path in enter path and click add",
                 "Help menu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        
+        private static void CopyFilesRecursively(string sourcePath, string targetPath, string dir)
+        {
+            // foreach (string dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories)) {
+            //     Directory.CreateDirectory(dirPath.Replace(sourcePath, targetPath));
+            // }
+            Directory.CreateDirectory(targetPath + dir);
+            foreach (string newPath in Directory.GetFiles(sourcePath, "*.*",SearchOption.AllDirectories)) {
+                File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+            }
+        }
+        
+        private static void Copy(string sourceDirectory, string targetDirectory) {
+            DirectoryInfo diSource = new DirectoryInfo(sourceDirectory);
+            DirectoryInfo diTarget = new DirectoryInfo(targetDirectory);
+
+            CopyAllS(diSource, diTarget);
+        }
+
+        private static void CopyAllS(DirectoryInfo source, DirectoryInfo target) {
+            Directory.CreateDirectory(target.FullName);
+            foreach (FileInfo fi in source.GetFiles()) {
+                fi.CopyTo(Path.Combine(target.FullName, fi.Name), true);
+            }
+            foreach (DirectoryInfo diSourceSubDir in source.GetDirectories()) {
+                DirectoryInfo nextTargetSubDir = target.CreateSubdirectory(diSourceSubDir.Name);
+                CopyAllS(diSourceSubDir, nextTargetSubDir);
+            }
         }
     }
 }
